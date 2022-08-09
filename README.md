@@ -28,10 +28,14 @@ Another cmake method is to let cmake handle the fetching of the repository.
 # enable FetchContent
 include(FetchContent)
 
-FetchContent_Declare(Boost
- GIT_REPOSITORY https://github.com/HlustikP/boost-headers-only.git
- GIT_TAG        main
- )
+FetchContent_Declare(boost
+        GIT_REPOSITORY https://github.com/HlustikP/boost-headers-only.git
+        GIT_TAG        main
+    )
 
-FetchContent_MakeAvailable(Boost)
+FetchContent_GetProperties(boost)
+if(NOT boost_POPULATED)
+    FetchContent_Populate(boost)
+endif()
+include_directories(${boost_SOURCE_DIR})
 ```
